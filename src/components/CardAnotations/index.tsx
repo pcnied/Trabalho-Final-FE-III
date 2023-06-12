@@ -7,7 +7,6 @@ import ModalAnotations from '../ModalAnotations';
 
 const CardAnotations: React.FC = () => {
 	const [open, setOpen] = useState(false);
-	// const dispatch = useAppDispatch();
 
 	return (
 		<>
@@ -22,7 +21,7 @@ const CardAnotations: React.FC = () => {
 							margin: 3,
 						}}
 					>
-						<Grid container>
+						<Grid container margin={2}>
 							<ColumnAnotation />
 						</Grid>
 					</Paper>

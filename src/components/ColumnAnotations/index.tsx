@@ -15,22 +15,29 @@ const ColumnAnotation: React.FC = () => {
 	return (
 		<>
 			<Grid item xs={12}>
-				<Typography variant="h4" padding={2}>
+				<Typography
+					variant="h3"
+					sx={{ display: 'flex', justifyContent: 'center' }}
+				>
 					ANOTAÇÕES
 				</Typography>
 			</Grid>
 
 			<Divider />
-			{listaAnotations
-				.filter((anotation) => anotation.criadoPor === usuarioLogado)
-				.map((anotation) => {
-					return (
-						<ItemAnotation
-							key={anotation.id}
-							anotation={anotation}
-						/>
-					);
-				})}
+			<Grid item>
+				{listaAnotations
+					.filter(
+						(anotation) => anotation.criadoPor === usuarioLogado,
+					)
+					.map((anotation) => {
+						return (
+							<ItemAnotation
+								key={anotation.id}
+								anotation={anotation}
+							/>
+						);
+					})}
+			</Grid>
 		</>
 	);
 };

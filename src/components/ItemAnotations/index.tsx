@@ -2,7 +2,6 @@ import { Delete, Edit } from '@mui/icons-material';
 import { Grid, IconButton, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
-import { useAppDispatch } from '../../store/hooks';
 import Anotations from '../../types/Anotations';
 import ModalAnotations from '../ModalAnotations';
 
@@ -14,19 +13,18 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 	const [open, setOpen] = useState(false);
 	const [deletar, setDeletar] = useState(false);
 	const [modificar, setModificar] = useState(false);
-	const dispatch = useAppDispatch();
 
 	return (
 		<>
 			<Grid key={anotation.id} container marginY={2}>
 				<Grid xs={12}>
-					<Typography>{anotation.titulo}</Typography>
+					<Typography variant="h5">{anotation.titulo}</Typography>
 				</Grid>
 				<Grid xs={6}>
-					<Typography>{anotation.descricao}</Typography>
+					<Typography>Descrição: {anotation.descricao}</Typography>
 				</Grid>
 				<Grid xs={6}>
-					<Typography>{anotation.criadoEm}</Typography>
+					<Typography>Data: {anotation.criadoEm}</Typography>
 				</Grid>
 				<Grid item xs={12}>
 					<Stack direction="row" spacing={2}>
