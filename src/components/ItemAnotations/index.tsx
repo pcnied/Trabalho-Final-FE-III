@@ -16,15 +16,20 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 
 	return (
 		<>
-			<Grid key={anotation.id} container marginY={2}>
+			<Grid
+				key={anotation.id}
+				container
+				marginY={2}
+				flexDirection="column"
+			>
 				<Grid xs={12}>
 					<Typography variant="h5">{anotation.titulo}</Typography>
 				</Grid>
-				<Grid xs={6}>
-					<Typography>Descrição: {anotation.descricao}</Typography>
+				<Grid xs={12}>
+					<Typography>{anotation.descricao}</Typography>
 				</Grid>
-				<Grid xs={6}>
-					<Typography>Data: {anotation.criadoEm}</Typography>
+				<Grid xs={12}>
+					<Typography>{anotation.criadoEm}</Typography>
 				</Grid>
 				<Grid item xs={12}>
 					<Stack direction="row" spacing={2}>

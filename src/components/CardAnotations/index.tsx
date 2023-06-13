@@ -19,6 +19,7 @@ const CardAnotations: React.FC = () => {
 							paddingY: 3,
 							marginBottom: 4,
 							margin: 3,
+							borderRadius: '10px',
 						}}
 					>
 						<Grid container margin={2}>

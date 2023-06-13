@@ -77,6 +77,9 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 		}
 
 		setOpen(false);
+		setTitulo('');
+		setDescricao('');
+		setData('');
 	};
 
 	return (

@@ -13,7 +13,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 				padding: '0px',
 				margin: '0px',
 				zIndex: '-1',
-				height: '100vh',
+				height: '100%',
 				background: `linear-gradient(250deg, white 0%, white 50%, ${background} 50%, ${background} 100%) no-repeat fixed`,
 			}}
 		>
