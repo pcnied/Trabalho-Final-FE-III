@@ -34,9 +34,9 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 	open,
 	setOpen,
 }) => {
-	const [titulo, setTitulo] = useState('');
-	const [descricao, setDescricao] = useState('');
-	const [data, setData] = useState('');
+	const [titulo, setTitulo] = useState(anotation?.titulo || '');
+	const [descricao, setDescricao] = useState(anotation?.descricao || '');
+	const [data, setData] = useState(anotation?.criadoEm || '');
 	const dispatch = useAppDispatch();
 	const criarAnotacao = () => {
 		dispatch(hideModal());
@@ -139,7 +139,7 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 
 				{contexto === 'deletar' && (
 					<DialogContentText id="alert-dialog-description">
-						Deseja realmente cancelar? Essa ação não poderá ser
+						Deseja realmente excluir? Essa ação não poderá ser
 						modificada.
 					</DialogContentText>
 				)}
