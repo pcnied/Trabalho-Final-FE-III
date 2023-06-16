@@ -3,33 +3,25 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SnackBarComp } from '../../../../components/SnackBar';
-import { useAppDispatch, useAppSelector } from '../../../../store/hooks';
-import { selectById } from '../../../../store/modules/User/usersSlice';
+import { useAppSelector } from '../../../../store/hooks';
+import { selectAll } from '../../../../store/modules/User/usersSlice';
 import {
 	emailValidator,
 	senhaValidator,
 } from '../../../../utils/validators/Inputs';
 import ModalOpen from '../ModalCadastro';
 
-interface UserProps {
-	id: string;
-	email: string;
-	senha: string;
-}
-
 const FormLogin = () => {
 	const [email, setEmail] = useState<string>('');
 	const [senha, setSenha] = useState<string>('');
-	// const [isLogged, setIsLogged] = useState<boolean>(false);
 
 	const [isError, setIsError] = useState<boolean>(false);
 	const [message, setMessage] = useState<string>('');
 	const [abertoModal, setAbertoModal] = useState<boolean>(false);
 
 	const navigate = useNavigate();
-	const dispatch = useAppDispatch();
 
-	const user = useAppSelector((estado) => selectById(estado, email));
+	const users = useAppSelector(selectAll);
 
 	const verifySnack = (emailIsValid: boolean, senhaIsValid: boolean) => {
 		if (emailIsValid === false) {
@@ -61,10 +53,21 @@ const FormLogin = () => {
 		const senhaIsValid = senhaValidator(senha);
 
 		verifySnack(emailIsValid, senhaIsValid);
+		const usuarioEncontrado = users.find((user) => {
+			return user.email === email;
+		});
 
-		if (user?.senha === senha) {
+		if (!usuarioEncontrado) {
+			verifySnack(false, false);
+			return;
+		}
+
+		if (usuarioEncontrado.senha === senha) {
 			navigate('/home');
-			sessionStorage.setItem('userLogged', JSON.stringify(user.email));
+			sessionStorage.setItem(
+				'userLogged',
+				JSON.stringify(usuarioEncontrado.email),
+			);
 		} else {
 			verifySnack(false, false);
 		}
@@ -135,7 +138,6 @@ const FormLogin = () => {
 					</Grid>
 				</Grid>
 			</Box>
-			{/* todo alerta, modal, dialog, botão flutuante - position fixed */}
 			<SnackBarComp
 				message={message}
 				isOpen={isError}
