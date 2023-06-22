@@ -16,7 +16,7 @@ const Section: React.FC<SectionProps> = ({ context }) => {
 				xs={6}
 				item
 			>
-				{context === 'home' ? <h1>HOME</h1> : <h1>MELANCIA</h1>}
+				{context === 'home' ? <h1>HOME</h1> : <h1>MELANCIAS</h1>}
 			</Grid>
 			<Grid xs={6} item></Grid>
 		</Grid>
