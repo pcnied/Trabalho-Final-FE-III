@@ -5,7 +5,7 @@ const Anotations = () => {
 	return (
 		<>
 			<ResponsiveAppBar />
-			<Section context="anotations" />
+			<Section />
 		</>
 	);
 };

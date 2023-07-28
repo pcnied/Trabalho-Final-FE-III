@@ -16,7 +16,7 @@ const Home = () => {
 					alignItems: 'center',
 				}}
 			>
-				<Section context="home" />
+				<Section />
 				<CardAnotations />
 			</Grid>
 		</>

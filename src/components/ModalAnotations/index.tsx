@@ -63,6 +63,7 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 							changes: {
 								titulo: titulo,
 								descricao: descricao,
+								criadoEm: data,
 							},
 						}),
 					);

@@ -1,4 +1,5 @@
 import { Box, Typography } from '@mui/material';
+import React from 'react';
 
 import { TextProps } from '../../types/TextProps';
 
@@ -18,7 +19,9 @@ const LoginText: React.FC<LoginTextProps> = ({ phrases }) => {
 			{phrases.map(({ phrase }) => {
 				return (
 					<>
-						<Typography variant="h4">{phrase}</Typography>
+						<Typography color={'white'} variant="h4">
+							{phrase}
+						</Typography>
 					</>
 				);
 			})}

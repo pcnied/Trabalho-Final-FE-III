@@ -3,8 +3,6 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { SnackBarComp } from '../../../../components/SnackBar';
-import { useAppSelector } from '../../../../store/hooks';
-import { selectAll } from '../../../../store/modules/User/usersSlice';
 import {
 	emailValidator,
 	senhaValidator,
@@ -20,8 +18,6 @@ const FormLogin = () => {
 	const [abertoModal, setAbertoModal] = useState<boolean>(false);
 
 	const navigate = useNavigate();
-
-	const users = useAppSelector(selectAll);
 
 	const verifySnack = (emailIsValid: boolean, senhaIsValid: boolean) => {
 		if (emailIsValid === false) {
@@ -51,11 +47,6 @@ const FormLogin = () => {
 	const save = () => {
 		const emailIsValid = emailValidator(email);
 		const senhaIsValid = senhaValidator(senha);
-
-		verifySnack(emailIsValid, senhaIsValid);
-		const usuarioEncontrado = users.find((user) => {
-			return user.email === email;
-		});
 
 		if (!usuarioEncontrado) {
 			verifySnack(false, false);

@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import React from 'react';
 
 interface LayoutProps {
 	children: React.ReactNode;
@@ -13,7 +14,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 				padding: '0px',
 				margin: '0px',
 				zIndex: '-1',
-				height: '100%',
+				height: '100vh',
 				background: `linear-gradient(250deg, white 0%, white 50%, ${background} 50%, ${background} 100%) no-repeat fixed`,
 			}}
 		>

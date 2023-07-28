@@ -1,11 +1,7 @@
 import { Grid } from '@mui/material';
 import React from 'react';
 
-interface SectionProps {
-	context?: 'home' | 'anotations';
-}
-
-const Section: React.FC<SectionProps> = ({ context }) => {
+const Section: React.FC = () => {
 	return (
 		<Grid container>
 			<Grid
@@ -15,9 +11,7 @@ const Section: React.FC<SectionProps> = ({ context }) => {
 				}}
 				xs={6}
 				item
-			>
-				{context === 'home' ? <h1>HOME</h1> : <h1>MELANCIAS</h1>}
-			</Grid>
+			></Grid>
 			<Grid xs={6} item></Grid>
 		</Grid>
 	);

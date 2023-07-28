@@ -1,7 +1,5 @@
-import { Box, Container, Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 
-import sapoFoda from '../../../public/sapoFoda.jpeg';
-import LoginImage from '../Login/Components/LoginImage';
 import FormLogin from './Components/FormLogin';
 import LoginText from './Components/LoginText';
 import { TextProps } from './types/TextProps';
@@ -15,7 +13,7 @@ const Login = () => {
 			phrase: 'Organize suas demandas!',
 		},
 		{
-			phrase: 'Seja um sapo fumante foda!',
+			phrase: 'Bora codar!',
 		},
 	];
 	return (
@@ -38,9 +36,9 @@ const Login = () => {
 					gap={3}
 				>
 					<LoginText phrases={phrases} />
-					<Box sx={{ display: 'flex', marginRight: '50px' }}>
+					{/* <Box sx={{ display: 'flex', marginRight: '50px' }}>
 						<LoginImage src={sapoFoda} />
-					</Box>
+					</Box> */}
 				</Grid>
 				<Grid
 					xs={6}
