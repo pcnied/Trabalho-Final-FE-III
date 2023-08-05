@@ -1,4 +1,4 @@
-import { Home, LogoutOutlined } from '@mui/icons-material';
+import { Home } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -22,9 +22,9 @@ const ResponsiveAppBar: React.FC = () => {
 							onClick={() => navigate('/anotations')}
 						/>
 					</IconButton> */}
-					<IconButton sx={{ color: 'black' }}>
+					{/* <IconButton sx={{ color: 'black' }}>
 						<LogoutOutlined onClick={() => navigate('/')} />
-					</IconButton>
+					</IconButton> */}
 				</Toolbar>
 			</AppBar>
 		</Box>
