@@ -17,11 +17,11 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 	return (
 		<>
 			<Grid
-				xs={4}
+				xs={12}
 				key={anotation.id}
 				container
 				marginY={2}
-				flexDirection="row"
+				flexDirection="column"
 				sx={{
 					border: '1px solid black',
 					borderRadius: '5px',

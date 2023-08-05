@@ -22,7 +22,7 @@ const CardAnotations: React.FC = () => {
 							borderRadius: '10px',
 						}}
 					>
-						<Grid container xs={12} margin={1}>
+						<Grid container xs={12}>
 							<ColumnAnotation />
 						</Grid>
 					</Paper>

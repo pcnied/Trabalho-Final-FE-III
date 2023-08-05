@@ -24,7 +24,7 @@ const ColumnAnotation: React.FC = () => {
 			</Grid>
 
 			<Divider />
-			<Grid item xs={12}>
+			<Grid item xs={12} sm={3} margin={2}>
 				{listaAnotations
 					.filter(
 						(anotation) => anotation.criadoPor === usuarioLogado,
