@@ -1,5 +1,5 @@
 import { Delete, Edit } from '@mui/icons-material';
-import { Grid, IconButton, Stack, Typography } from '@mui/material';
+import { Divider, Grid, IconButton, Stack, Typography } from '@mui/material';
 import React, { useState } from 'react';
 
 import Anotations from '../../types/Anotations';
@@ -17,14 +17,29 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 	return (
 		<>
 			<Grid
+				xs={4}
 				key={anotation.id}
 				container
 				marginY={2}
-				flexDirection="column"
+				flexDirection="row"
+				sx={{
+					border: '1px solid black',
+					borderRadius: '5px',
+					padding: '10px',
+				}}
 			>
 				<Grid xs={12}>
 					<Typography variant="h5">{anotation.titulo}</Typography>
 				</Grid>
+				<Divider
+					sx={{
+						width: '100%',
+						background: 'black',
+						marginY: '8px',
+						display: 'flex',
+						justifyContent: 'center',
+					}}
+				></Divider>
 				<Grid xs={12}>
 					<Typography>{anotation.descricao}</Typography>
 				</Grid>

@@ -9,10 +9,9 @@ const Section: React.FC = () => {
 					display: 'flex',
 					justifyContent: 'center',
 				}}
-				xs={6}
+				xs={12}
 				item
 			></Grid>
-			<Grid xs={6} item></Grid>
 		</Grid>
 	);
 };

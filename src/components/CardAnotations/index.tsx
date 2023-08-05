@@ -15,14 +15,14 @@ const CardAnotations: React.FC = () => {
 					<Paper
 						square
 						sx={{
-							height: 'min-content',
+							height: 'max-content',
 							paddingY: 3,
 							marginBottom: 4,
 							margin: 3,
 							borderRadius: '10px',
 						}}
 					>
-						<Grid container margin={2}>
+						<Grid container xs={12} margin={1}>
 							<ColumnAnotation />
 						</Grid>
 					</Paper>
