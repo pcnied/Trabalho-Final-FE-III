@@ -2,12 +2,12 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 interface ModalProps {
 	open: boolean;
-	contexto: 'criar' | 'modificar' | 'deletar';
+	context: 'create' | 'update' | 'delete';
 }
 
 const initialState: ModalProps = {
 	open: false,
-	contexto: 'criar',
+	context: 'create',
 };
 
 const modalSlice = createSlice({
@@ -16,11 +16,11 @@ const modalSlice = createSlice({
 	reducers: {
 		showModal: (
 			state,
-			action: PayloadAction<'criar' | 'modificar' | 'deletar'>,
+			action: PayloadAction<'create' | 'update' | 'delete'>,
 		) => {
 			return {
 				open: true,
-				contexto: action.payload,
+				context: action.payload,
 			};
 		},
 		hideModal: (state) => {

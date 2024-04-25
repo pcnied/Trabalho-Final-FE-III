@@ -2,7 +2,6 @@ import { Grid } from '@mui/material';
 
 import ResponsiveAppBar from '../../components/AppBar';
 import CardAnotations from '../../components/CardAnotations';
-import Section from '../../components/Section';
 
 const Home = () => {
 	return (
@@ -16,8 +15,9 @@ const Home = () => {
 					alignItems: 'center',
 				}}
 			>
-				<Section />
-				<CardAnotations />
+				<Grid item xs={12} sm={12}>
+					<CardAnotations />
+				</Grid>
 			</Grid>
 		</>
 	);

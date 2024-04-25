@@ -15,12 +15,12 @@ const anotationSlice = createSlice({
 	name: 'anotation',
 	initialState: anotationsAdapter.getInitialState(),
 	reducers: {
-		adicionarAnotacao: anotationsAdapter.addOne,
-		deletarAnotacao: anotationsAdapter.removeOne,
-		editarAnotacao: anotationsAdapter.updateOne,
+		createAnotation: anotationsAdapter.addOne,
+		deleteAnotation: anotationsAdapter.removeOne,
+		updateAnotation: anotationsAdapter.updateOne,
 	},
 });
 
-export const { adicionarAnotacao, deletarAnotacao, editarAnotacao } =
+export const { createAnotation, deleteAnotation, updateAnotation } =
 	anotationSlice.actions;
 export default anotationSlice.reducer;

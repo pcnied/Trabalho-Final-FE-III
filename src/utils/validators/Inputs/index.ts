@@ -12,12 +12,12 @@ export const emailValidator = (email: string): boolean => {
 	return true;
 };
 
-export const senhaValidator = (senha: string): boolean => {
-	if (!senha) {
+export const passwordValidator = (password: string): boolean => {
+	if (!password) {
 		return false;
 	}
 
-	if (senha.length < 6) {
+	if (password.length < 6) {
 		return false;
 	}
 

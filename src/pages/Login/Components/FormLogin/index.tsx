@@ -7,7 +7,7 @@ import { useAppSelector } from '../../../../store/hooks';
 import { selectAll } from '../../../../store/modules/User/usersSlice';
 import {
 	emailValidator,
-	senhaValidator,
+	passwordValidator,
 } from '../../../../utils/validators/Inputs';
 import ModalOpen from '../ModalCadastro';
 
@@ -50,7 +50,7 @@ const FormLogin = () => {
 
 	const save = () => {
 		const emailIsValid = emailValidator(email);
-		const senhaIsValid = senhaValidator(senha);
+		const senhaIsValid = passwordValidator(senha);
 
 		verifySnack(emailIsValid, senhaIsValid);
 		const usuarioEncontrado = users.find((user) => {
@@ -62,7 +62,7 @@ const FormLogin = () => {
 			return;
 		}
 
-		if (usuarioEncontrado.senha === senha) {
+		if (usuarioEncontrado.password === senha) {
 			navigate('/home');
 			sessionStorage.setItem(
 				'userLogged',

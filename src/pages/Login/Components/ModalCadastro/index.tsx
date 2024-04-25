@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { SnackBarComp } from '../../../../components/SnackBar';
 import { useAppSelector } from '../../../../store/hooks';
 import {
-	adicionarUsuario,
+	createUser,
 	selectAll,
 } from '../../../../store/modules/User/usersSlice';
 import { emailRegex } from '../../../../utils/validators/regexDados';
@@ -126,9 +126,9 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 					}
 
 					dispatch(
-						adicionarUsuario({
+						createUser({
 							email: emailCadastro,
-							senha: senhaCadastro,
+							password: senhaCadastro,
 						}),
 					);
 

@@ -36,9 +36,6 @@ const Login = () => {
 					gap={3}
 				>
 					<LoginText phrases={phrases} />
-					{/* <Box sx={{ display: 'flex', marginRight: '50px' }}>
-						<LoginImage src={sapoFoda} />
-					</Box> */}
 				</Grid>
 				<Grid
 					xs={6}

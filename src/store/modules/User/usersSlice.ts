@@ -4,11 +4,11 @@ import { RootState } from '../..';
 
 interface User {
 	email: string;
-	senha: string;
+	password: string;
 }
 
 const usersAdapter = createEntityAdapter<User>({
-	selectId: (estado) => estado.email,
+	selectId: (state) => state.email,
 });
 
 export const { selectAll, selectById } = usersAdapter.getSelectors(
@@ -19,10 +19,10 @@ const usersSlice = createSlice({
 	name: 'users',
 	initialState: usersAdapter.getInitialState(),
 	reducers: {
-		adicionarUsuario: usersAdapter.addOne,
+		createUser: usersAdapter.addOne,
 	},
 });
 
-export const { adicionarUsuario } = usersSlice.actions;
+export const { createUser } = usersSlice.actions;
 
 export default usersSlice.reducer;

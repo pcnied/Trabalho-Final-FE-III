@@ -9,102 +9,134 @@ import {
 	Grid,
 	TextField,
 } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { v4 as generateId } from 'uuid';
 
 import { useAppDispatch } from '../../store/hooks';
 import {
-	adicionarAnotacao,
-	deletarAnotacao,
-	editarAnotacao,
+	createAnotation,
+	deleteAnotation,
+	updateAnotation,
 } from '../../store/modules/Anotations';
 import { hideModal } from '../../store/modules/ModalAnotations';
 import Anotations from '../../types/Anotations';
 
 interface ModalAnotationsProps {
 	anotation?: Anotations;
-	contexto: 'criar' | 'modificar' | 'deletar';
+	context: 'create' | 'update' | 'delete';
 	open: boolean;
 	setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 	anotation,
-	contexto,
+	context,
 	open,
 	setOpen,
 }) => {
-	const [titulo, setTitulo] = useState(anotation?.titulo || '');
-	const [descricao, setDescricao] = useState(anotation?.descricao || '');
-	const [data, setData] = useState(anotation?.criadoEm || '');
+	const [title, setTitle] = useState<string>(anotation?.title || '');
+	const [description, setDescription] = useState<string>(
+		anotation?.description || '',
+	);
+	const [date, setDate] = useState<string>(anotation?.createdAt || '');
+	const [fieldsValid, setFieldsValid] = useState<boolean>(false);
 	const dispatch = useAppDispatch();
-	const criarAnotacao = () => {
+
+	useEffect(() => {
+		if (anotation) {
+			setTitle(anotation.title || '');
+			setDescription(anotation.description || '');
+			setDate(anotation.createdAt || '');
+		}
+	}, [anotation]);
+
+	const resetState = () => {
+		setTitle('');
+		setDescription('');
+		setDate('');
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+		resetState();
+	};
+
+	const handleCreateOrUpdate = () => {
 		dispatch(hideModal());
-		switch (contexto) {
-			case 'criar':
-				dispatch(
-					adicionarAnotacao({
-						criadoEm: data,
-						criadoPor: JSON.parse(
-							sessionStorage.getItem('userLogged') || '',
-						),
-						descricao: descricao,
-						id: generateId(),
-						titulo: titulo,
-					}),
-				);
-				break;
 
-			case 'modificar':
-				if (anotation) {
-					dispatch(
-						editarAnotacao({
-							id: anotation.id,
-							changes: {
-								titulo: titulo,
-								descricao: descricao,
-								criadoEm: data,
-							},
-						}),
-					);
-				}
-				break;
-
-			case 'deletar':
-				if (anotation) {
-					dispatch(deletarAnotacao(anotation.id));
-				}
-				break;
+		if (context === 'create') {
+			dispatch(
+				createAnotation({
+					createdAt: date,
+					createdBy: JSON.parse(
+						sessionStorage.getItem('userLogged') || '',
+					),
+					description: description,
+					id: generateId(),
+					title: title,
+				}),
+			);
+		} else if (context === 'update' && anotation) {
+			dispatch(
+				updateAnotation({
+					id: anotation.id,
+					changes: {
+						title: title,
+						description: description,
+						createdAt: date,
+					},
+				}),
+			);
+		} else if (context === 'delete' && anotation) {
+			dispatch(deleteAnotation(anotation.id));
 		}
 
-		setOpen(false);
-		setTitulo('');
-		setDescricao('');
-		setData('');
+		handleClose();
 	};
+
+	const validateFields = () => {
+		if (
+			title.trim() !== '' &&
+			description.trim() !== '' &&
+			date.trim() !== ''
+		) {
+			setFieldsValid(true);
+		} else {
+			setFieldsValid(false);
+		}
+	};
+
+	useEffect(() => {
+		validateFields();
+	}, [title, description, date]);
 
 	return (
 		<Dialog
 			open={open}
-			onClose={() => setOpen(false)}
+			onClose={handleClose}
 			aria-labelledby="alert-dialog-title"
 			aria-describedby="alert-dialog-description"
 		>
 			<DialogTitle id="alert-dialog-title">
-				{contexto === 'criar' && 'Criar Anotação'}
-				{contexto === 'modificar' && 'Modificar Anotação'}
-				{contexto === 'deletar' && 'Deletar Anotação'}
+				{context === 'create' && 'Criar Anotação'}
+				{context === 'update' && 'Modificar Anotação'}
+				{context === 'delete' && 'Deletar Anotação'}
 			</DialogTitle>
 			<Divider />
 			<DialogContent>
-				{contexto !== 'deletar' && (
+				{context === 'delete' ? (
+					<DialogContentText id="alert-dialog-description">
+						Deseja realmente excluir? Essa ação não poderá ser
+						modificada.
+					</DialogContentText>
+				) : (
 					<Grid container spacing={3}>
 						<Grid item xs={12}>
 							<TextField
-								onChange={(evento) =>
-									setTitulo(evento.target.value)
+								onChange={(event) =>
+									setTitle(event.target.value)
 								}
-								value={titulo}
+								value={title}
 								fullWidth
 								label="Título"
 								type="text"
@@ -112,10 +144,10 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
-								onChange={(evento) =>
-									setDescricao(evento.target.value)
+								onChange={(event) =>
+									setDescription(event.target.value)
 								}
-								value={descricao}
+								value={description}
 								fullWidth
 								label="Descrição"
 								type="text"
@@ -123,13 +155,11 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 						</Grid>
 						<Grid item xs={12}>
 							<TextField
-								onChange={(evento) =>
-									setData(evento.target.value)
+								onChange={(event) =>
+									setDate(event.target.value)
 								}
-								value={data}
-								InputLabelProps={{
-									shrink: true,
-								}}
+								value={date}
+								InputLabelProps={{ shrink: true }}
 								fullWidth
 								label="Data"
 								type="date"
@@ -137,22 +167,16 @@ const ModalAnotations: React.FC<ModalAnotationsProps> = ({
 						</Grid>
 					</Grid>
 				)}
-
-				{contexto === 'deletar' && (
-					<DialogContentText id="alert-dialog-description">
-						Deseja realmente excluir? Essa ação não poderá ser
-						modificada.
-					</DialogContentText>
-				)}
 			</DialogContent>
 			<DialogActions>
-				<Button variant="outlined" onClick={() => setOpen(false)}>
+				<Button variant="outlined" onClick={handleClose}>
 					Cancelar
 				</Button>
 				<Button
 					variant="contained"
-					onClick={() => criarAnotacao()}
+					onClick={handleCreateOrUpdate}
 					autoFocus
+					disabled={!fieldsValid}
 				>
 					Concluir
 				</Button>

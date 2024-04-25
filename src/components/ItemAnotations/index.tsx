@@ -12,12 +12,11 @@ interface ItemAnotationProps {
 const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 	const [open, setOpen] = useState(false);
 	const [deletar, setDeletar] = useState(false);
-	const [modificar, setModificar] = useState(false);
+	const [update, setUpdate] = useState(false);
 
 	return (
 		<>
 			<Grid
-				xs={12}
 				key={anotation.id}
 				container
 				marginY={2}
@@ -26,10 +25,13 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 					border: '1px solid black',
 					borderRadius: '5px',
 					padding: '10px',
+					maxWidth: '100%',
 				}}
 			>
-				<Grid xs={12}>
-					<Typography variant="h5">{anotation.titulo}</Typography>
+				<Grid item xs={12}>
+					<Typography sx={{ wordWrap: 'break-word' }} variant="h4">
+						{anotation.title}
+					</Typography>
 				</Grid>
 				<Divider
 					sx={{
@@ -40,13 +42,15 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 						justifyContent: 'center',
 					}}
 				></Divider>
-				<Grid xs={12}>
-					<Typography>{anotation.descricao}</Typography>
-				</Grid>
-				<Grid xs={12}>
-					<Typography>{anotation.criadoEm}</Typography>
-				</Grid>
 				<Grid item xs={12}>
+					<Typography sx={{ wordWrap: 'break-word' }} variant="h6">
+						{anotation.description}
+					</Typography>
+				</Grid>
+				<Grid>
+					<Typography>{anotation.createdAt}</Typography>
+				</Grid>
+				<Grid item>
 					<Stack direction="row" spacing={2}>
 						<IconButton
 							color="error"
@@ -54,7 +58,7 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 							onClick={() => {
 								setOpen(true);
 								setDeletar(true);
-								setModificar(false);
+								setUpdate(false);
 							}}
 						>
 							<Delete />
@@ -63,7 +67,7 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 							aria-label="edit"
 							onClick={() => {
 								setOpen(true);
-								setModificar(true);
+								setUpdate(true);
 								setDeletar(false);
 							}}
 						>
@@ -72,8 +76,9 @@ const ItemAnotation: React.FC<ItemAnotationProps> = ({ anotation }) => {
 					</Stack>
 				</Grid>
 			</Grid>
+
 			<ModalAnotations
-				contexto={deletar ? 'deletar' : 'modificar'}
+				context={deletar ? 'delete' : 'update'}
 				open={open}
 				setOpen={setOpen}
 				anotation={anotation}

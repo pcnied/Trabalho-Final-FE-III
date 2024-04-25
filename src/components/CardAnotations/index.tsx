@@ -11,18 +11,22 @@ const CardAnotations: React.FC = () => {
 	return (
 		<>
 			<Grid container>
-				<Grid item xs={12}>
+				<Grid item xs={12} sm={12}>
 					<Paper
 						square
 						sx={{
-							height: 'max-content',
+							height: 'min-content',
 							paddingY: 3,
 							marginBottom: 4,
 							margin: 3,
 							borderRadius: '10px',
 						}}
 					>
-						<Grid container xs={12}>
+						<Grid
+							container
+							justifyContent={'center'}
+							rowSpacing={5}
+						>
 							<ColumnAnotation />
 						</Grid>
 					</Paper>
@@ -36,7 +40,7 @@ const CardAnotations: React.FC = () => {
 				<Add />
 				Adicionar Anotação
 			</Fab>
-			<ModalAnotations contexto={'criar'} open={open} setOpen={setOpen} />
+			<ModalAnotations context={'create'} open={open} setOpen={setOpen} />
 		</>
 	);
 };
