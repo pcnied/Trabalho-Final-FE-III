@@ -1,4 +1,4 @@
-export interface InfosValidas {
+export interface ValidInfos {
 	helperText: string;
 	isValid: boolean;
 }

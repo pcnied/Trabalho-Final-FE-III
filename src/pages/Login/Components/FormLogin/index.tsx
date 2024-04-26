@@ -9,30 +9,30 @@ import {
 	emailValidator,
 	passwordValidator,
 } from '../../../../utils/validators/Inputs';
-import ModalOpen from '../ModalCadastro';
+import ModalOpen from '../ModalRegister';
 
 const FormLogin = () => {
 	const [email, setEmail] = useState<string>('');
-	const [senha, setSenha] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 
 	const [isError, setIsError] = useState<boolean>(false);
 	const [message, setMessage] = useState<string>('');
-	const [abertoModal, setAbertoModal] = useState<boolean>(false);
+	const [openModal, setOpenModal] = useState<boolean>(false);
 
 	const navigate = useNavigate();
 
 	const users = useAppSelector(selectAll);
 
-	const verifySnack = (emailIsValid: boolean, senhaIsValid: boolean) => {
-		if (emailIsValid === false) {
+	const verifySnack = (isValidEmail: boolean, isValidPassword: boolean) => {
+		if (isValidEmail === false) {
 			setMessage('Erro! Verifique seus dados.');
-			setIsError(!emailIsValid);
+			setIsError(!isValidEmail);
 			return;
 		}
 
-		if (senhaIsValid === false) {
+		if (isValidPassword === false) {
 			setMessage('Erro! Verifique seus dados.');
-			setIsError(!senhaIsValid);
+			setIsError(!isValidPassword);
 			return;
 		}
 	};
@@ -49,24 +49,24 @@ const FormLogin = () => {
 	};
 
 	const save = () => {
-		const emailIsValid = emailValidator(email);
-		const senhaIsValid = passwordValidator(senha);
+		const isValidEmail = emailValidator(email);
+		const isValidPassword = passwordValidator(password);
 
-		verifySnack(emailIsValid, senhaIsValid);
-		const usuarioEncontrado = users.find((user) => {
+		verifySnack(isValidEmail, isValidPassword);
+		const userFound = users.find((user) => {
 			return user.email === email;
 		});
 
-		if (!usuarioEncontrado) {
+		if (!userFound) {
 			verifySnack(false, false);
 			return;
 		}
 
-		if (usuarioEncontrado.password === senha) {
+		if (userFound.password === password) {
 			navigate('/home');
 			sessionStorage.setItem(
 				'userLogged',
-				JSON.stringify(usuarioEncontrado.email),
+				JSON.stringify(userFound.email),
 			);
 		} else {
 			verifySnack(false, false);
@@ -74,7 +74,7 @@ const FormLogin = () => {
 	};
 
 	const handleClickOpen = () => {
-		setAbertoModal(true);
+		setOpenModal(true);
 	};
 
 	return (
@@ -103,9 +103,9 @@ const FormLogin = () => {
 							label="Senha"
 							fullWidth
 							onChange={(event) => {
-								setSenha(event.currentTarget.value);
+								setPassword(event.currentTarget.value);
 							}}
-							value={senha}
+							value={password}
 							type="password"
 						></TextField>
 					</Grid>
@@ -143,7 +143,7 @@ const FormLogin = () => {
 				isOpen={isError}
 				handleClose={handleCloseSnack}
 			/>
-			<ModalOpen aberto={abertoModal} mudancaEstado={setAbertoModal} />
+			<ModalOpen aberto={openModal} changeState={setOpenModal} />
 		</>
 	);
 };

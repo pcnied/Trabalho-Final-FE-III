@@ -16,24 +16,24 @@ import {
 	selectAll,
 } from '../../../../store/modules/User/usersSlice';
 import { emailRegex } from '../../../../utils/validators/regexDados';
-import { InfosValidas } from '../../types/InfosValidas';
+import { ValidInfos } from '../../types/ValidInfos';
 
 interface ModalOpenProps {
 	aberto: boolean;
-	mudancaEstado: React.Dispatch<React.SetStateAction<boolean>>;
+	changeState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
-	const [emailCadastro, setEmailCadastro] = useState<string>('');
-	const [senhaCadastro, setSenhaCadastro] = useState<string>('');
+const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, changeState }) => {
+	const [emailRegister, setEmailRegister] = useState<string>('');
+	const [passwordRegister, setPasswordRegister] = useState<string>('');
 	const [error, setError] = useState(false);
 	const [message, setMessage] = useState<string>('');
 
-	const [errorEmail, setErrorEmail] = useState<InfosValidas>({
+	const [errorEmail, setErrorEmail] = useState<ValidInfos>({
 		helperText: '',
 		isValid: true,
 	});
-	const [errorSenha, setErrorSenha] = useState<InfosValidas>({
+	const [errorPassword, setErrorPassword] = useState<ValidInfos>({
 		helperText: '',
 		isValid: true,
 	});
@@ -42,7 +42,7 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 	const users = useAppSelector(selectAll);
 
 	useEffect(() => {
-		if (emailCadastro.length && !emailRegex.test(emailCadastro)) {
+		if (emailRegister.length && !emailRegex.test(emailRegister)) {
 			setErrorEmail({
 				helperText: 'Informe um e-mail válido.',
 				isValid: false,
@@ -53,22 +53,22 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 				isValid: true,
 			});
 		}
-	}, [emailCadastro]);
+	}, [emailRegister]);
 
 	useEffect(() => {
-		if (senhaCadastro.length && senhaCadastro.length < 6) {
-			setErrorSenha({
+		if (passwordRegister.length && passwordRegister.length < 6) {
+			setErrorPassword({
 				helperText: 'Cadastre uma senha com no mínimo 6 caracteres.',
 				isValid: false,
 			});
 		} else {
-			setErrorSenha({
+			setErrorPassword({
 				helperText:
 					'Utilize uma senha fácil de lembrar e anote para não esquecer.',
 				isValid: true,
 			});
 		}
-	}, [senhaCadastro]);
+	}, [passwordRegister]);
 
 	const handleCloseSnack = (
 		event: React.SyntheticEvent | Event,
@@ -82,7 +82,7 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 	};
 
 	const handleClose = () => {
-		mudancaEstado(false);
+		changeState(false);
 	};
 
 	return (
@@ -113,11 +113,11 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 				sx={{ maxWidth: '100%' }}
 				onSubmit={(ev) => {
 					ev.preventDefault();
-					const usuarioExistente = users.some(
-						(usuario) => usuario.email === emailCadastro,
+					const userFound = users.some(
+						(user) => user.email === emailRegister,
 					);
 
-					if (usuarioExistente) {
+					if (userFound) {
 						setError(true);
 						setMessage(
 							'Usuário já cadastrado. Utilize outro e-mail.',
@@ -127,13 +127,13 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 
 					dispatch(
 						createUser({
-							email: emailCadastro,
-							password: senhaCadastro,
+							email: emailRegister,
+							password: passwordRegister,
 						}),
 					);
 
-					setEmailCadastro('');
-					setSenhaCadastro('');
+					setEmailRegister('');
+					setPasswordRegister('');
 
 					handleClose();
 				}}
@@ -149,9 +149,9 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 								error={!errorEmail.isValid}
 								helperText={errorEmail.helperText}
 								onChange={(event) => {
-									setEmailCadastro(event.currentTarget.value);
+									setEmailRegister(event.currentTarget.value);
 								}}
-								value={emailCadastro}
+								value={emailRegister}
 							></TextField>
 						</Grid>
 						<Grid item xs={12}>
@@ -161,12 +161,14 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, mudancaEstado }) => {
 								fullWidth
 								required
 								inputProps={{ minLenght: 6 }}
-								error={!errorSenha.isValid}
-								helperText={errorSenha.helperText}
+								error={!errorPassword.isValid}
+								helperText={errorPassword.helperText}
 								onChange={(event) => {
-									setSenhaCadastro(event.currentTarget.value);
+									setPasswordRegister(
+										event.currentTarget.value,
+									);
 								}}
-								value={senhaCadastro}
+								value={passwordRegister}
 							></TextField>
 						</Grid>
 					</Grid>
