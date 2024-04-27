@@ -18,12 +18,12 @@ import {
 import { emailRegex } from '../../../../utils/validators/regexDados';
 import { ValidInfos } from '../../types/ValidInfos';
 
-interface ModalOpenProps {
+interface OpenModalProps {
 	aberto: boolean;
 	changeState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, changeState }) => {
+const OpenModal: React.FC<OpenModalProps> = ({ aberto, changeState }) => {
 	const [emailRegister, setEmailRegister] = useState<string>('');
 	const [passwordRegister, setPasswordRegister] = useState<string>('');
 	const [error, setError] = useState(false);
@@ -196,4 +196,4 @@ const ModalOpen: React.FC<ModalOpenProps> = ({ aberto, changeState }) => {
 	);
 };
 
-export default ModalOpen;
+export default OpenModal;

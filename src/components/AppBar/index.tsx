@@ -12,14 +12,6 @@ const ResponsiveAppBar: React.FC = () => {
 		<Box sx={{ flexGrow: 1 }}>
 			<AppBar position="static" sx={{ background: 'white' }}>
 				<Toolbar>
-					{/* <IconButton sx={{ color: 'black' }}>
-						<Home onClick={() => navigate('/home')} />
-					</IconButton> */}
-					{/* <IconButton sx={{ color: 'black' }}>
-						<ListAltOutlined
-							onClick={() => navigate('/anotations')}
-						/>
-					</IconButton> */}
 					<IconButton sx={{ color: 'black' }}>
 						<LogoutOutlined onClick={() => navigate('/')} />
 					</IconButton>

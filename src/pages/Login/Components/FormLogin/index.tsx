@@ -9,7 +9,7 @@ import {
 	emailValidator,
 	passwordValidator,
 } from '../../../../utils/validators/Inputs';
-import ModalOpen from '../ModalRegister';
+import OpenModal from '../ModalRegister';
 
 const FormLogin = () => {
 	const [email, setEmail] = useState<string>('');
@@ -143,7 +143,7 @@ const FormLogin = () => {
 				isOpen={isError}
 				handleClose={handleCloseSnack}
 			/>
-			<ModalOpen aberto={openModal} changeState={setOpenModal} />
+			<OpenModal aberto={openModal} changeState={setOpenModal} />
 		</>
 	);
 };
